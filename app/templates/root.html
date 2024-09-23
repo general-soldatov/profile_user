@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ru">
+
+<head></head>
+    <meta charset="UTF-8">
+    <title>Статистика по студентам</title>
+</head>
+
+<table class="info-table"></table>
+    {% for key, value in student.info.items() %}
+        <tr><td class="sed">{{ key }}</td><td>{{ value }}</td></tr>
+    {% endfor %}
+</table>

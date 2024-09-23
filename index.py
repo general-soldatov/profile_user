@@ -10,23 +10,10 @@ app = FastAPI()
 templates = Jinja2Templates(directory='app/templates')
 app.mount('/telegram_bot/static', StaticFiles(directory='static'), 'static')
 
-# student = {
-#     "name": "string",
-#     "range": "string",
-#     "img": "https://img.razrisyika.ru/kart/125/499535-smeshariki-losyash-35.jpg",
-#     "rate": 45,
-#     "star": 3,
-#     "info": {
-#         'profile': 'HTTC',
-#         'variant': 3,
-#         'group': 34
-#     }
-# }
 
 information = {
     'denied': 'Permission denied',
     'style': [
-        # 'https://storage.yandexcloud.net/termex-bot/telegram-bot/static/style_tel.css',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
         '/telegram_bot/static/style_tel.css'
     ]

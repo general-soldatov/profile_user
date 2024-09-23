@@ -1,15 +1,15 @@
-import json
+import requests
 from app.database import UserVar
 
 def sum_task(data: dict) -> float:
     return sum(map(int, data.values()))
 
 def get_range(score: float | int):
-    with open('static/ranger.json', 'r', encoding='utf-8') as file:
-            data = json.load(file)
-            for key, value in data.items():
-                if score < int(key):
-                    return value
+    url = 'https://storage.yandexcloud.net/termex-bot/telegram-bot/static/ranger.json'
+    page = requests.get(url)
+    for key, value in page.json().items():
+        if score < int(key):
+            return value
 
 def profile(user_id: int):
     data = UserVar().get_user(user_id)
