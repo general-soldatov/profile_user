@@ -30,5 +30,6 @@ def profile(user_id: int):
             'Группа': data['group'],
             'Вариант': data['var']['var_all'],
             'Вариант Д1': data['var']['var_d1']
-        }
+        },
+        "tasks": data['tasks']
     }

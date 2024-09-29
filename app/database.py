@@ -3,6 +3,7 @@ import logging
 from boto3.dynamodb.conditions import Key
 from os import getenv
 from dotenv import load_dotenv
+from boto3.dynamodb.conditions import Key
 
 from app.config import dynamodb_config
 
@@ -51,7 +52,7 @@ class UserVar:
         )
         return table
 
-    def put_item(self, user_id, name, profile, group, var, var_d1, fine=0):
+    def put_item(self, user_id, name, profile, group, var, var_d1, fine=0, prize=0):
         table = self.dynamodb.Table(self.table)
         all_var = {'var_all': var, 'var_d1': var_d1}
         tasks = {'S0': 0}
@@ -68,6 +69,7 @@ class UserVar:
                     'group': group,
                     'var': all_var,
                     'fine': fine,
+                    'prize': prize,
                     'tasks': tasks,
                     'bonus': bonus
             }
@@ -111,6 +113,10 @@ class UserVar:
                 'user_id': user_id
             }
         )
+        # response = table.query(
+        #     ProjectionExpression = "user_id, name, profile",
+        #     KeyConditionExpression = Key('user_id').eq(user_id)
+        # )
         return response['Item']
 
 
@@ -128,6 +134,10 @@ class UserVar:
         )
         return response
 
+
+    def all_users(self):
+        table = self.dynamodb.Table(self.table)
+        return table.scan()['Items']
 
     def all_users(self):
         table = self.dynamodb.Table(self.table)

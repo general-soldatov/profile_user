@@ -1,5 +1,7 @@
 import json
 from app.handler import profile
+from app.database import UserVar
+from base import code
 
 def ranger():
     data = {
@@ -36,4 +38,10 @@ def ranger():
         print('Success')
 
 
-print(profile(980314213))
+print(UserVar().get_user(980314213))
+var = '1814265390'
+
+# for i in code:
+#     UserVar().put_item(user_id=int(i['user_id']), name=i['name'], profile=i['profile'], group=i['group'], var=i['var']['var_all'], var_d1=i['var']['var_d1'])
+
+print(UserVar().all_users())
