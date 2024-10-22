@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
-from app.handler import profile
+from app.handler import profile, phys_profile
 
 app = FastAPI()
 templates = Jinja2Templates(directory='app/templates')
@@ -24,6 +24,16 @@ information = {
 async def root(request: Request, name: str):
     name = int(name)
     student = profile(name)
+
+    return templates.TemplateResponse(name='students.html',
+                                      context={'request': request,
+                                               'student': student,
+                                               'information': information})
+
+@app.get("/telegram_bot/phys/bot={name}")
+async def root(request: Request, name: str):
+    name = int(name)
+    student = phys_profile(name)
 
     return templates.TemplateResponse(name='students.html',
                                       context={'request': request,

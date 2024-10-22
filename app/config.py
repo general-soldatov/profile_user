@@ -12,6 +12,13 @@ class DatabaseConfig:
 
 load_dotenv()
 
+@dataclass
+class DBPhysConfig:
+    endpoint_url: str = getenv('ENDPOINT_PHYS')
+    region_name: str = getenv('REGION_NAME')
+    aws_access_key_id: str = getenv('AWS_ACCESS_KEY_ID')
+    aws_secret_access_key: str = getenv('AWS_SECRET_ACCESS_KEY')
+
 database_config = DatabaseConfig(endpoint=getenv('ENDPOINT'),
                                  region_name=getenv('REGION_NAME'),
                                  key_id=getenv('AWS_ACCESS_KEY_ID'),
