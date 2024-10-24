@@ -1,47 +1,37 @@
 import json
+from os import getenv
 from app.handler import profile
 from app.database import UserVar
 from base import code
+from dataclasses import dataclass, is_dataclass
+from app.database_phys import DBStudents
+from app.db_students import DynamodbManage, KeySchema, ProvisionedThroughput, AWSManage
+from app.config import AWSConfig
 
-def ranger():
-    data = {
-        10: {
-            'name': 'Ёжик',
-            'quote': 'Super',
-            'image': 'https://avatars.mds.yandex.net/i?id=3fe0791a9a5fb1f0d69c307e941ce3ca_l-10769069-images-thumbs&n=13'
-        },
-        30: {
-            'name': 'Крош',
-            'quote': 'Super',
-            'image': 'https://yt3.googleusercontent.com/ZDSAMV2E3sYowKeOaE-LnyX9k8pbm_kZkxUij2FVNwfGnX-yFyCdcvEOybw4t5jk0ey9Hw60wg=s900-c-k-c0x00ffffff-no-rj'
-        },
-        50: {
-            'name': 'Копатыч',
-            'quote': 'Super',
-            'image': 'https://i.pinimg.com/originals/32/84/09/328409dc45e1e67ba42d3f90191e778f.jpg'
-        },
-        80: {
-            'name': 'Пин',
-            'quote': 'Super',
-            'image': 'https://steamuserimages-a.akamaihd.net/ugc/2457357698622614042/FF58AA3A289A6F2FA9F63EEF9C0B2E4310ABEA25/?imw=512&amp;imh=512&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true'
-        },
-        150: {
-            'name': 'Лосяш',
-            'quote': 'Super',
-            'image': 'https://img.razrisyika.ru/kart/125/499535-smeshariki-losyash-35.jpg'
-        }
-
-    }
-
-    with open('static/ranger.json', 'w', encoding='utf-8') as fl:
-        json.dump(data, fl, ensure_ascii=False, indent=4)
-        print('Success')
+@dataclass
+class Table:
+    name: str
+    user_id: int
+    create: float
 
 
-print(UserVar().get_user(980314213))
-var = '1814265390'
+config_db = AWSConfig(service_name='dynamodb', endpoint_url=getenv('TEST_END'))
+key_scheme = KeySchema(HASH='name', RANGE='user_id')
+prov = ProvisionedThroughput(ReadCapacityUnits=1, WriteCapacityUnits=1)
+
+# response = DynamodbManage(resource_name='Table_test', config=config_db).create_table(key_scheme, attribute=Table, provisioned_throughput=prov)
+data = Table(name='Yur', user_id=236, create=19.57)
+response = DynamodbManage(resource_name='Table_test', config=config_db).scan() #put_item_table(data)
+
+print(response['Items'])
+
+
+# print(UserVar().get_user(980314213))
+# var = '1814265390'
 
 # for i in code:
 #     UserVar().put_item(user_id=int(i['user_id']), name=i['name'], profile=i['profile'], group=i['group'], var=i['var']['var_all'], var_d1=i['var']['var_d1'])
 
-print(UserVar().all_users())
+# print(UserVar().all_users())
+
+# print(response)

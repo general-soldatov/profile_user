@@ -3,6 +3,21 @@ from dataclasses import dataclass
 from os import getenv
 from dotenv import load_dotenv
 
+load_dotenv()
+
+@dataclass
+class AWSSession:
+    region_name: str = getenv('AWS_DEFAULT_REGION')
+    aws_access_key_id: str = getenv('AWS_ACCESS_KEY_ID')
+    aws_secret_access_key: str = getenv('AWS_SECRET_ACCESS_KEY')
+
+@dataclass
+class AWSConfig:
+    service_name: str
+    endpoint_url: str
+
+db_config = AWSConfig(service_name='dynamodb', endpoint_url=getenv('ENDPOINT_DB'))
+
 @dataclass
 class DatabaseConfig:
     endpoint: str
@@ -10,7 +25,6 @@ class DatabaseConfig:
     key_id: str
     access_key: str
 
-load_dotenv()
 
 @dataclass
 class DBPhysConfig:
