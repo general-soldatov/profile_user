@@ -55,6 +55,13 @@
     {% endif %}
     {% endfor %}
 </table>
+<p>Рейтинг </p>
+<table class="info-table">
+  <tr><td class="sed">Место</td><td class="sed">ФИО</td><td class="sed">Балл</td></tr>
+    {% for item in student.rate_list %}
+    <tr><td>{{ item.rate }}</td><td>{{ item.name }}</td><td>{{ item.score }}</td></tr>
+    {% endfor %}
+</table>
 {% else %}
   <h1>{{ information.denied }}</h1>
 {% endif %}

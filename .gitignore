@@ -1,3 +1,7 @@
+/venv
 *.zip
 .env
 base.py
+boto.yaml
+boto-orm.yaml
+data.json
