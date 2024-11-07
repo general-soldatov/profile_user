@@ -14,9 +14,9 @@ def termex_profile(user_id: int):
     rater = get_range(tasks)
 
     if data['profile'] == "Преподаватель":
-        rate_list = get_rate('НТТС', 'termex-bot')
+        rate_list = [get_rate('НТТС', 'termex-bot'), get_rate('Агроинженерия', 'termex-bot')]
     else:
-        rate_list = get_rate(data['profile'], 'termex-bot')
+        rate_list = [get_rate(data['profile'], 'termex-bot')]
     return {
         "name": data['name'],
         "range": rater['name'],
@@ -44,9 +44,9 @@ def phys_profile(user_id: int):
     tasks = study_score(data)
     rater = get_range(tasks)
     if data['profile'] == "Преподаватель":
-        rate_list = get_rate('Агроинженерия', 'phys-bot')
+        rate_list = [get_rate('Агроинженерия', 'phys-bot'), get_rate('Биотехнологии', 'phys-bot')]
     else:
-        rate_list = get_rate(data['profile'], 'phys-bot')
+        rate_list = [get_rate(data['profile'], 'phys-bot')]
     return {
         "name": data['name'],
         "range": rater['name'],
